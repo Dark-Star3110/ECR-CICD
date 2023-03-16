@@ -10,20 +10,13 @@ on:
   #   types: [closed]
 
 jobs:
-  log:
-    name: Log Building
+  build:
+    name: Build and Test ECR
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
       - name: Initiated Build
         run: echo "Start to build image..."
 
-  build:
-    name: Build and Test ECR
-    needs:
-      - setup
-    runs-on: ubuntu-latest
-    steps:
       - name: Check Out Code
         uses: actions/checkout@v3
 
