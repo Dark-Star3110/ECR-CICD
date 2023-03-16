@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - .github/workflows/**
+      - "**"
+
+jobs:
+  setup:
+    if: github.event.pull_request.draft == false
+    name: Setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Use Node 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - name: Install dependencies
+        run: yarn install
+
+  lint:
+    name: Lint
+    needs:
+      - setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - name: Lint
+        run: yarn lint
