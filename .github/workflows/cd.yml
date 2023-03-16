@@ -11,6 +11,8 @@ on:
 
 jobs:
   build:
+    env:
+      REPOSITORY_URL: "812935980374.dkr.ecr.ap-southeast-1.amazonaws.com/ecr-cicd"
     name: Build and Test ECR
     needs:
       - setup
@@ -36,7 +38,7 @@ jobs:
       - name: Build, tag, and push docker image to Amazon ECR
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: $REPOSITORY_URL
+          REPOSITORY: ${{ env.REPOSITORY_URL }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
