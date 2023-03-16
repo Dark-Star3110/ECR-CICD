@@ -10,20 +10,13 @@ on:
   #   types: [closed]
 
 jobs:
-  setup:
-    if: github.event.pull_request.draft == false
-    name: Setup
+  log:
+    name: Log Building
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-      - name: Use Node 18.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - name: Install dependencies
-        run: yarn install
+      - name: Initiated Build
+        run: echo "Start to build image..."
 
   build:
     name: Build and Test ECR
@@ -31,9 +24,6 @@ jobs:
       - setup
     runs-on: ubuntu-latest
     steps:
-      - name: Initiated Build
-        run: echo "Start to build image..."
-
       - name: Check Out Code
         uses: actions/checkout@v3
 
@@ -42,7 +32,7 @@ jobs:
         with:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "ap-southeast-1"
+          AWS_REGION: "ap-southeast-1"
 
       - name: Login to Amazon ECR
         id: login-ecr
