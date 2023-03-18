@@ -1,0 +1,14 @@
+name: CI Cache Action
+
+description: ci cache
+
+runs:
+  using: composite
+  steps:
+    - name: Cache node modules
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: "**/node_modules"
+        key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./yarn.lock') }}
