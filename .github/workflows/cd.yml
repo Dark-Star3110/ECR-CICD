@@ -5,7 +5,7 @@ on:
     inputs:
       Description:
         type: string
-        required: false
+        required: true
   # pull_request:
   #   branches:
   #     - main
