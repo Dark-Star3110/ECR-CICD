@@ -46,6 +46,7 @@ app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
+  console.log("404");
   next(createError(404));
 });
 

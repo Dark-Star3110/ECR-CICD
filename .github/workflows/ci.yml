@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
+      - name: Cache files
+        uses: ./.github/actions/ci_cache
       - name: Install dependencies
         run: yarn install
 
@@ -36,7 +38,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "18.x"
-      - name: Restore cache files
+      - name: Restore files
         uses: ./.github/actions/ci_cache
       - name: Lint
         run: yarn lint
