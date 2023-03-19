@@ -15,6 +15,7 @@ jobs:
   build:
     name: Build image ECR and Deploy ECS task definition
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Initiated Build
         run: echo "Start to build image..."
