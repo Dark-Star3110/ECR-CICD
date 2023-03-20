@@ -1,5 +1,5 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:288137121977:task-definition/teramusubi-staging-task-definition:4",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:288137121977:task-definition/teramusubi-staging-task-definition",
   "containerDefinitions": [
     {
       "name": "teramusubi-staging-container",
@@ -31,7 +31,6 @@
   "family": "teramusubi-staging-task-definition",
   "executionRoleArn": "arn:aws:iam::288137121977:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
-  "revision": 4,
   "volumes": [],
   "status": "ACTIVE",
   "requiresAttributes": [
