@@ -1,35 +1,35 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
+const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !email.length) {
       return res.status(422).send({
-        message: "email is required and must not be empty",
+        message: 'email is required and must not be empty',
       });
     }
 
     if (!password || !password.length) {
       return res.status(422).send({
-        message: "Password is required and must not be empty",
+        message: 'Password is required and must not be empty',
       });
     }
 
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
       return res.status(404).send({
-        message: "User not found",
+        message: 'User not found',
       });
     }
 
     if (!bcrypt.compareSync(password, user.password)) {
       return res.status(404).send({
-        message: "Password is incorrect",
+        message: 'Password is incorrect',
       });
     }
 
@@ -38,30 +38,30 @@ router.post("/login", async (req, res) => {
     return res.json(result);
   } catch (error) {
     return res.status(500).send({
-      message: "Server error",
+      message: 'Server error',
     });
   }
 });
 
-router.post("/register", async (req, res) => {
+router.post('/register', async (req, res) => {
   try {
     const { email, password, displayName } = req.body;
 
     if (!email || !email.length) {
       return res.status(422).send({
-        message: "Email is required and must not be empty",
+        message: 'Email is required and must not be empty',
       });
     }
 
     if (!password || !password.length) {
       return res.status(422).send({
-        message: "Password is required and must not be empty",
+        message: 'Password is required and must not be empty',
       });
     }
 
     if (!displayName || !displayName.length) {
       return res.status(422).send({
-        message: "Display name is required and must not be empty",
+        message: 'Display name is required and must not be empty',
       });
     }
 
@@ -82,15 +82,15 @@ router.post("/register", async (req, res) => {
     await user.save();
 
     return res.json({
-      message: "success",
+      message: 'success',
     });
   } catch (error) {
-    if (error.name === "ValidationError") {
+    if (error.name === 'ValidationError') {
       return res.status(400).json({ error: error.message });
     }
 
     return res.status(500).send({
-      message: "Server error",
+      message: 'Server error',
     });
   }
 });

@@ -6,7 +6,9 @@
     "start": "node ./bin/www",
     "test": "jest --coverage --detectOpenHandles --forceExit",
     "lint": "eslint \"**/*.js\" --fix",
-    "dev": "nodemon ./bin/www"
+    "format": "prettier --write \"**/*.js\" ",
+    "dev": "nodemon ./bin/www",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -20,13 +22,25 @@
   },
   "devDependencies": {
     "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
     "jest": "^26.2.2",
+    "lint-staged": "^13.2.1",
     "nodemon": "^2.0.4",
+    "prettier": "^2.8.7",
     "supertest": "^4.0.2"
   },
   "nodemonConfig": {
     "ignore": [
       "__tests__/*"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "npm run format",
+      "git add ."
     ]
   }
 }
